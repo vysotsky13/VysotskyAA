@@ -7,9 +7,7 @@
 
 {% block content %}
     {% for q in query %}
-        <div class="col-md-4">
-            <a href="{% url 'book_single' q.id %}">{{ q.title }}</a>
-        </div>
+        <a style="border: double" href="{% url 'book_single' q.id %}">{{ q.title }}</a><br>
     {% endfor %}
 
     <div class="row pagination-wrap" style="margin-bottom: 20px">
