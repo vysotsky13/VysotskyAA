@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block page_title %}
+    Response
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-lg-12">
+            <form id="item_form" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                {% if form.instance.id %}
+                  Ваш ответ успешно отправлен!
+                {% else %}
+                    {{ form|crispy }}
+                    <p>
+                        <button type="submit">Сохранить</button>
+                    </p>
+                {% endif %}
+            </form>
+        </div>
+{% endblock %}
