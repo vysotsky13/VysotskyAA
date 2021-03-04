@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title%}
+    <title>{{ q.title }}</title>
+{% endblock %}
+
+{% block content %}
+    {{ q.county }}
+    {{ q.genre }}
+    {{ q.author }}
+    {{ q.year }}
+    {{ q.amount_in_stock }}
+{% endblock %}

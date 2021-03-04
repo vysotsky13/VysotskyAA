@@ -10,7 +10,7 @@
               list-style-type: none;
               margin: 0;
               padding: 0;
-              width: 10%;
+              width: 20%;
               background-color: #f1f1f1;
               position: fixed;
               height: 100%;
@@ -48,12 +48,12 @@
 
         <ul>
           <li><a class="active" href="{% url 'index' %}">Главная</a></li>
-          <li><a href="#news">Страница1</a></li>
-          <li><a href="#contact">Страница2</a></li>
+          <li><a href="{% url 'books_list' %}">Список всех книг</a></li>
+          <li><a href="#contact">Поиск</a></li>
           <li><a href="{% url 'contacts' %}">Контакты</a></li>
         </ul>
 
-        <div style="margin-left:10%;padding:1px 16px;height:900px;">
+        <div style="margin-left:20%;padding:1px 16px;height:900px;">
             {% block content %}
                   <h1>Добро пожаловать!</h1>
                   <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>

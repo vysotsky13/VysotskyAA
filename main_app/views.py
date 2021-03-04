@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import BookModel
 from .forms import ResponseForm
 
 
@@ -16,3 +18,28 @@ def contacts(request):
         'form': form,
     }
     return render(request, "other/contacts.html", context)
+
+
+def book_single(request, id):
+    book_query = get_object_or_404(BookModel, id=id)
+    context = {
+        'q': book_query,
+    }
+    return render(request, "books/book_single.html", context)
+
+
+def books_list(request):
+    qs = BookModel.objects.all().order_by('title')
+    paginator = Paginator(qs, 50)
+    page = request.GET.get('page')
+    try:
+        qs = paginator.page(page)
+    except PageNotAnInteger:
+        qs = paginator.page(1)
+    except EmptyPage:
+        qs = paginator.page(paginator.num_pages)
+
+    context = {
+        'query': qs,
+    }
+    return render(request, "books/books_list.html", context)

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title%}
+    <title>All Books</title>
+{% endblock %}
+
+{% block content %}
+    {% for q in query %}
+        <div class="col-md-4">
+            <a href="{% url 'book_single' q.id %}">{{ q.title }}</a>
+        </div>
+    {% endfor %}
+
+    <div class="row pagination-wrap" style="margin-bottom: 20px">
+        <div class="col-md-6 text-center text-md-left">
+            <div class="custom-pagination ml-auto">
+                {% if query.has_previous %}
+                    <a href="?page={{ query.previous_page_number }}" class="prev">Предыдущая</a>
+                {% endif %}
+                <div class="d-inline-block">
+                    Страница <a href="#" class="active">{{ query.number }}</a> из {{ query.paginator.num_pages }}
+                </div>
+                {% if query.has_next %}
+                    <a href="?page={{ query.next_page_number }}" class="next">Следующая</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
