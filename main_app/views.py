@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView
+
 from .models import BookModel
 from .forms import ResponseForm
 
@@ -43,3 +45,15 @@ def books_list(request):
         'query': qs,
     }
     return render(request, "books/books_list.html", context)
+
+
+class SearchView(ListView):
+    model = BookModel
+    template_name = 'books/search.html'
+    context_object_name = 'books'
+
+    def get_queryset(self):
+        return self.model.objects.filter(title__contains=self.request.GET['title'],
+                                         country__contains=self.request.GET['country'],
+                                         author__contains=self.request.GET['author'])
+

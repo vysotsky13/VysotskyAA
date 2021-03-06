@@ -1,7 +1,14 @@
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <style>
+            .center {
+              margin: auto;
+              width: 60%;
+              padding: 10px;
+            }
             body {
               margin: 0;
             }
@@ -49,7 +56,6 @@
         <ul>
           <li><a class="active" href="{% url 'index' %}">Главная</a></li>
           <li><a href="{% url 'books_list' %}">Список всех книг</a></li>
-          <li><a href="#contact">Поиск</a></li>
           <li><a href="{% url 'contacts' %}">Контакты</a></li>
         </ul>
 
@@ -59,13 +65,24 @@
                   <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
                   <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
                   <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
-                  <p>Some text..</p>
-                  <p>Some text..</p>
-                  <p>Some text..</p>
-                  <p>Some text..</p>
-                  <p>Some text..</p>
-                  <p>Some text..</p>
-                  <p>Some text..</p>
+
+                            <form method="get" action="{% url 'search' %}">
+                                <div class="row mb-5">
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                        <label for="title"></label><input type="text" id="title" name="title" class="form-control form-control-lg" placeholder="Название книги...">
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                        <label for="country"></label><input type="text" id="country" name="country" class="form-control form-control-lg" placeholder="Страна...">
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                        <label for="author"></label><input type="text" id="author" name="author" class="form-control form-control-lg" placeholder="Автор...">
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0" style="margin-top: 22px">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block text-white btn-search"><span class="icon-search icon mr-2"></span>Найти...</button>
+                                    </div>
+                                </div>
+                            </form>
+
             {% endblock %}
         </div>
     </body>

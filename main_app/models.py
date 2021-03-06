@@ -13,7 +13,7 @@ class ResponseModel(models.Model):
 
 class BookModel(models.Model):
     title = models.CharField(max_length=64, verbose_name='Название книги')
-    county = models.CharField(max_length=32, verbose_name='Страна')
+    country = models.CharField(max_length=32, verbose_name='Страна')
     genre = models.CharField(max_length=32, verbose_name='Жанр')
     author = models.CharField(max_length=64, verbose_name='Автор')
     year = models.CharField(max_length=32, verbose_name='Дата публикации')
