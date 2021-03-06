@@ -61,11 +61,9 @@
 
         <div style="margin-left:20%;padding:1px 16px;height:900px;">
             {% block content %}
-                  <h1>Добро пожаловать!</h1>
-                  <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
-                  <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
-                  <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
-
+                <h1>Добро пожаловать!</h1>
+                <h3>Электронный сервис для учета книг в библиотеке</h3>
+                Воспользуйтесь формой ниже для поиска определенной книги:
                             <form method="get" action="{% url 'search' %}">
                                 <div class="row mb-5">
                                     <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
@@ -82,7 +80,6 @@
                                     </div>
                                 </div>
                             </form>
-
             {% endblock %}
         </div>
     </body>

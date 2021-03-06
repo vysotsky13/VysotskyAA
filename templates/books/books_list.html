@@ -6,16 +6,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class="mb-5">
-        <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3">
-            <div class="col-md-2">
-                {% for q in query %}
-                    <a style="border: double" href="{% url 'book_single' q.id %}">{{ q.title }}</a><br>
-                {% endfor %}
+    {% for q in query %}
+        <div class="card col-lg-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'book_single' q.id %}">{{ q.title }}</a><br>
+                </h5>
             </div>
         </div>
-    </div>
-
+    {% endfor %}
     <div class="row pagination-wrap" style="margin-bottom: 20px">
         <div class="col-md-6 text-center text-md-left">
             <div class="custom-pagination ml-auto">

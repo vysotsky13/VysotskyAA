@@ -17,6 +17,7 @@ class BookModel(models.Model):
     genre = models.CharField(max_length=32, verbose_name='Жанр')
     author = models.CharField(max_length=64, verbose_name='Автор')
     year = models.CharField(max_length=32, verbose_name='Дата публикации')
+    description = models.TextField(verbose_name='Описание')
     amount_in_stock = models.IntegerField()
 
     def __str__(self):
