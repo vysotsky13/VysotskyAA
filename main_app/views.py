@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 
 from .models import BookModel
-from .forms import ResponseForm
+from .forms import ResponseForm, BookForm
 
 
 def index(request):
@@ -56,4 +56,16 @@ class SearchView(ListView):
         return self.model.objects.filter(title__contains=self.request.GET['title'],
                                          country__contains=self.request.GET['country'],
                                          author__contains=self.request.GET['author'])
+
+
+def book_post(request):
+    form = BookForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save()
+        instance.save()
+        return redirect('/books_list/')
+    context = {
+        'form': form,
+    }
+    return render(request, "books/book_post.html", context)
 
