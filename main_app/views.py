@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 
 from .models import BookModel
-from .forms import ResponseForm, BookForm
+from .forms import ResponseForm, BookForm   # database models
 
 
 def index(request):
