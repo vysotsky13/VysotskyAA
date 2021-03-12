@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView
 
-from .models import BookModel
-from .forms import ResponseForm, BookForm
+from .models import BookModel, ClientsHistoryModel
+from .forms import ResponseForm, BookForm, ClientsHistoryForm
 
 
 def index(request):
@@ -25,8 +25,10 @@ def contacts(request):
 
 def book_single(request, id):
     book_query = get_object_or_404(BookModel, id=id)
+    histories_query = ClientsHistoryModel.objects.all().filter(book=book_query)
     context = {
         'q': book_query,
+        'histories': histories_query,
     }
     return render(request, "books/book_single.html", context)
 
@@ -71,14 +73,40 @@ def book_post(request):
     return render(request, "books/book_post.html", context)
 
 
+def history_post(request, pk):
+    book_query = get_object_or_404(BookModel, id=pk)
+    form = ClientsHistoryForm(request.POST or None)
+    form.initial = {'book': book_query}
+    if form.is_valid():
+        instance = form.save()
+        instance.save()
+        return redirect('/books_list/')
+    context = {
+        'form': form,
+    }
+    return render(request, "history/history_post.html", context)
+
+
 class BookUpdate(UpdateView):
     template_name = 'books/book_post.html'
     model = BookModel
     form_class = BookForm
 
 
+class HistoryUpdate(UpdateView):
+    template_name = 'history/history_post.html'
+    model = ClientsHistoryModel
+    form_class = ClientsHistoryForm
+
+
 class BookDelete(DeleteView):
     model = BookModel
     success_url = reverse_lazy('books_list')
     template_name = 'books/confirm_book_delete.html'
+
+
+class HistoryDelete(DeleteView):
+    model = ClientsHistoryModel
+    success_url = reverse_lazy('books_list')
+    template_name = 'history/confirm_history_delete.html'
 

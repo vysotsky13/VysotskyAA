@@ -67,6 +67,23 @@
             height: auto;
           }
         }
+
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+
     </style>
 {% endblock %}
 
@@ -87,8 +104,27 @@
       <article>
         <h1>Описание:</h1>
         <p>{{ q.description }}</p>
-          <a href="{% url 'book_update' q.id %}">Изменить</a>
-          <a href="{% url 'book_delete' q.id %}">Удалить</a>
+              <a href="{% url 'book_update' q.id %}">Изменить</a> |
+              <a href="{% url 'book_delete' q.id %}">Удалить</a> |
+              <a href="{% url 'history_post' q.id %}"> Добавить историю пользования</a>
+
+          <table>
+              <tr>
+                <th>Имя и Фамилия</th>
+                <th>Дата выдачи</th>
+                <th>Дата возврата</th>
+                <th>Статус</th>
+              </tr>
+              {% for history in histories %}
+                  <tr>
+                    <td>{{ history.full_name }}</td>
+                    <td>{{ history.date_of_issue }}</td>
+                    <td>{{ history.return_date }}</td>
+                    <td><a href="{% url 'history_update' history.book.id %}">И</a>/<a href="{% url 'history_delete' history.book.id %}">У</a></td>
+                  </tr>
+              {% endfor %}
+          </table>
+
       </article>
     </section>
 {% endblock %}

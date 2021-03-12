@@ -1,5 +1,5 @@
 from django import forms
-from .models import ResponseModel, BookModel
+from .models import ResponseModel, BookModel, ClientsHistoryModel
 
 
 class ResponseForm(forms.ModelForm):
@@ -12,3 +12,11 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = BookModel
         fields = '__all__'
+
+
+class ClientsHistoryForm(forms.ModelForm):
+    book = forms.ModelChoiceField(queryset=BookModel.objects.all(), empty_label=None, label='Книга', disabled=True)
+
+    class Meta:
+        model = ClientsHistoryModel
+        fields = ('book', 'full_name', 'date_of_issue', 'return_date')

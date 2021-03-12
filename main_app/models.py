@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 
 class ResponseModel(models.Model):
@@ -18,10 +19,23 @@ class BookModel(models.Model):
     author = models.CharField(max_length=64, verbose_name='Автор')
     year = models.CharField(max_length=32, verbose_name='Дата публикации')
     description = models.TextField(verbose_name='Описание')
-    amount_in_stock = models.IntegerField()
+    amount_in_stock = models.IntegerField(verbose_name='Имеющееся количество')
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('book_single', args=[self.id])
+
+
+class ClientsHistoryModel(models.Model):
+    book = models.OneToOneField('BookModel', on_delete=models.CASCADE, primary_key=True)
+    full_name = models.CharField(max_length=64, verbose_name='Имя Фамилия')
+    date_of_issue = models.DateTimeField(default=timezone.now, blank=False, verbose_name='Дата выдачи')
+    return_date = models.DateTimeField(blank=True, verbose_name='Дата возврата', null=True)
+
+    def __str__(self):
+        return 'История пользования' + self.book.title
+
+    def get_absolute_url(self):
+        return reverse('book_single', args=[self.book.id])
