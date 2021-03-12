@@ -87,6 +87,8 @@
       <article>
         <h1>Описание:</h1>
         <p>{{ q.description }}</p>
+          <a href="{% url 'book_update' q.id %}">Изменить</a>
+          <a href="{% url 'book_delete' q.id %}">Удалить</a>
       </article>
     </section>
 {% endblock %}

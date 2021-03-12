@@ -1,9 +1,10 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, UpdateView, DeleteView
 
 from .models import BookModel
-from .forms import ResponseForm, BookForm   # database models
+from .forms import ResponseForm, BookForm
 
 
 def index(request):
@@ -68,4 +69,16 @@ def book_post(request):
         'form': form,
     }
     return render(request, "books/book_post.html", context)
+
+
+class BookUpdate(UpdateView):
+    template_name = 'books/book_post.html'
+    model = BookModel
+    form_class = BookForm
+
+
+class BookDelete(DeleteView):
+    model = BookModel
+    success_url = reverse_lazy('books_list')
+    template_name = 'books/confirm_book_delete.html'
 
