@@ -120,7 +120,7 @@
                     <td>{{ history.full_name }}</td>
                     <td>{{ history.date_of_issue }}</td>
                     <td>{{ history.return_date }}</td>
-                    <td><a href="{% url 'history_update' history.book.id %}">И</a>/<a href="{% url 'history_delete' history.book.id %}">У</a></td>
+                    <td><a href="{% url 'history_update' history.id %}">И</a>/<a href="{% url 'history_delete' history.id %}">У</a></td>
                   </tr>
                   {% empty %}
                   <p> Истории пользования отсутвуют...</p>
