@@ -3,6 +3,11 @@ from . import views
 
 
 urlpatterns = [
+    path('order_post/', views.order_post, name='order_post'),
+    path('order_update/<int:pk>/', views.OrderUpdate.as_view(), name='order_update'),
+    path('order_delete/<int:pk>/', views.OrderDelete.as_view(), name='order_delete'),
+    path('orders_list/', views.orders_list, name='orders_list'),
+
     path('history_post/<int:pk>/', views.history_post, name='history_post'),
     path('history_update/<int:pk>/', views.HistoryUpdate.as_view(), name='history_update'),
     path('history_delete/<int:pk>/', views.HistoryDelete.as_view(), name='history_delete'),

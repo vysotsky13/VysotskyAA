@@ -1,5 +1,5 @@
 from django import forms
-from .models import ResponseModel, BookModel, ClientsHistoryModel
+from .models import ResponseModel, BookModel, ClientsHistoryModel, Order
 
 
 class ResponseForm(forms.ModelForm):
@@ -11,6 +11,12 @@ class ResponseForm(forms.ModelForm):
 class BookForm(forms.ModelForm):
     class Meta:
         model = BookModel
+        fields = '__all__'
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
         fields = '__all__'
 
 

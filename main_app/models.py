@@ -39,3 +39,16 @@ class ClientsHistoryModel(models.Model):
 
     def get_absolute_url(self):
         return reverse('book_single', args=[self.book.id])
+
+
+class Order(models.Model):
+    book_title = models.CharField(max_length=64, verbose_name='Название книги')
+    full_name = models.CharField(max_length=64, verbose_name='Имя Фамилия')
+    email = models.EmailField(verbose_name='Почта для подтверждения')
+
+    def __str__(self):
+        return 'Заявка на ' + self.book_title
+
+    @classmethod
+    def get_absolute_url(cls):
+        return reverse('orders_list', args=[])

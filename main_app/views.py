@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView
 
-from .models import BookModel, ClientsHistoryModel
-from .forms import ResponseForm, BookForm, ClientsHistoryForm
+from .models import BookModel, ClientsHistoryModel, Order
+from .forms import ResponseForm, BookForm, ClientsHistoryForm, OrderForm
 
 
 def index(request):
@@ -109,4 +109,45 @@ class HistoryDelete(DeleteView):
     model = ClientsHistoryModel
     success_url = reverse_lazy('books_list')
     template_name = 'history/confirm_history_delete.html'
+
+
+class OrderUpdate(UpdateView):
+    template_name = 'orders/order_post.html'
+    model = Order
+    form_class = OrderForm
+
+
+class OrderDelete(DeleteView):
+    model = Order
+    success_url = reverse_lazy('orders_list')
+    template_name = 'orders/confirm_order_delete.html'
+
+
+def order_post(request):
+    form = OrderForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save()
+        instance.save()
+        return redirect('/orders_list/')
+    context = {
+        'form': form,
+    }
+    return render(request, "orders/order_post.html", context)
+
+
+def orders_list(request):
+    qs = Order.objects.all()
+    pagination = Paginator(qs, 10)
+    page = request.GET.get('page')
+    try:
+        qs = pagination.page(page)
+    except PageNotAnInteger:
+        qs = pagination.page(1)
+    except EmptyPage:
+        qs = pagination.page(pagination.num_pages)
+
+    context = {
+        'query': qs,
+    }
+    return render(request, "orders/order_list.html", context)
 
